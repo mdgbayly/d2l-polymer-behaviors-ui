@@ -118,21 +118,19 @@
 				return false;
 			}
 
-			var _isFocusable = false;
+			var _isFocusable;
 
 			// IE treats all nodes without tabindex explicitly set as having tabindex=0
 			if (node.getAttributeNode) {
 				var tabIndexAttr = node.getAttributeNode('tabindex');
-				if (tabIndexAttr && tabIndexAttr.specified && tabIndexAttr.value >= 0) {
-					_isFocusable = true;
+				if (tabIndexAttr && tabIndexAttr.specified) {
+					_isFocusable = (tabIndexAttr.value >= 0);
 				}
 			}
 
-			if (!_isFocusable) {
+			if (_isFocusable === undefined) {
 				var nodeName = node.nodeName.toLowerCase();
-				if (this._focusableElements[nodeName]) {
-					_isFocusable = true;
-				}
+				_isFocusable = this._focusableElements[nodeName];
 			}
 
 			if (_isFocusable && !includeHidden) {
