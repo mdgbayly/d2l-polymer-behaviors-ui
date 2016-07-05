@@ -77,7 +77,15 @@
 						<a id="light3" href="javascript:void(0);"></a>
 					</d2l-focus-test>
 					<a id="light2" href="javascript:void(0);"></a>
-					</div>
+				</div>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="focusableFixture">
+			<template>
+				<div>
+					<a></a>
+					<button></button>
 				</div>
 			</template>
 		</test-fixture>
@@ -150,6 +158,54 @@
 				it('returns focusable host sibling', function() {
 					expect(D2L.Dom.Focus.getNextFocusable(mixedFixture.querySelector('#wc1').getShadow2()))
 						.to.equal(mixedFixture.querySelector('#light2'));
+				});
+
+			});
+
+			describe('isFocusable', function() {
+
+				var focusableFixture;
+
+				beforeEach(function() {
+					focusableFixture = fixture('focusableFixture');
+				});
+
+				it('returns true for standard anchor', function() {
+					expect(D2L.Dom.Focus.isFocusable(focusableFixture.querySelector('a'))).to.be.true;
+				});
+
+				it('returns true for anchor with tabindex=0', function() {
+					focusableFixture.querySelector('a').setAttribute('tabindex', '0');
+					expect(D2L.Dom.Focus.isFocusable(focusableFixture.querySelector('a'))).to.be.true;
+				});
+
+				it('returns false if tabindex=-1', function() {
+					focusableFixture.querySelector('a').setAttribute('tabindex', '-1');
+					expect(D2L.Dom.Focus.isFocusable(focusableFixture.querySelector('a'))).to.be.false;
+				});
+
+				it('returns false if not displayed', function() {
+					focusableFixture.querySelector('a').style.display = 'none';
+					expect(D2L.Dom.Focus.isFocusable(focusableFixture.querySelector('a'))).to.be.false;
+				});
+
+				it('returns true if not displayed and includeHidden=true', function() {
+					focusableFixture.querySelector('a').style.display = 'none';
+					expect(D2L.Dom.Focus.isFocusable(focusableFixture.querySelector('a'), true)).to.be.true;
+				});
+
+				it('returns false if not displayed and includeHidden=false', function() {
+					focusableFixture.querySelector('a').style.display = 'none';
+					expect(D2L.Dom.Focus.isFocusable(focusableFixture.querySelector('a'), false)).to.be.false;
+				});
+
+				it('returns true for standard button', function() {
+					expect(D2L.Dom.Focus.isFocusable(focusableFixture.querySelector('button'))).to.be.true;
+				});
+
+				it('returns false for disabled button', function() {
+					focusableFixture.querySelector('button').setAttribute('disabled', true);
+					expect(D2L.Dom.Focus.isFocusable(focusableFixture.querySelector('button'))).to.be.false;
 				});
 
 			});
