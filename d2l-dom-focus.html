@@ -23,13 +23,8 @@
 		getFocusableDescendant: function(node, includeHidden) {
 
 			var composedChildren = D2L.Dom.getComposedChildren(node);
-			//
 
 			for (var i = 0; i < composedChildren.length; i++) {
-
-				if (composedChildren[i].nodeType !== 1) {
-					continue;
-				}
 
 				if (this.isFocusable(composedChildren[i], includeHidden)) {
 					return composedChildren[i];
@@ -114,7 +109,7 @@
 
 		isFocusable: function(node, includeHidden) {
 
-			if (!node || node.disabled) {
+			if (!node || node.nodeType !== 1 || node.disabled) {
 				return false;
 			}
 
