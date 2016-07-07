@@ -55,8 +55,9 @@
 				<div>
 					<div>
 						<a id="light1" href="javascript:void(0);"></a>
+						<a id="light2" href="javascript:void(0);"></a>
 					</div>
-					<a id="light2" href="javascript:void(0);"></a>
+					<a id="light3" href="javascript:void(0);"></a>
 				</div>
 			</template>
 		</test-fixture>
@@ -65,6 +66,7 @@
 			<template>
 					<d2l-focus-test>
 						<a id="light1" href="javascript:void(0);"></a>
+						<a id="light2" href="javascript:void(0);"></a>
 					</d2l-focus-test>
 			</template>
 		</test-fixture>
@@ -106,31 +108,89 @@
 				mixedFixture = fixture('mixedFixture');
 			});
 
-			describe('getFocusableDescendant', function() {
+			describe('getFirstFocusableDescendant', function() {
 
 				it('returns focusable child', function() {
-					expect(D2L.Dom.Focus.getFocusableDescendant(simpleFixture))
+					expect(D2L.Dom.Focus.getFirstFocusableDescendant(simpleFixture))
 						.to.equal(simpleFixture.querySelector('#light1'));
 				});
 
 				it('returns focusable descendant', function() {
-					expect(D2L.Dom.Focus.getFocusableDescendant(nestedFixture))
+					expect(D2L.Dom.Focus.getFirstFocusableDescendant(nestedFixture))
 						.to.equal(nestedFixture.querySelector('#light1'));
 				});
 
 				it('returns null if no children', function() {
-					expect(D2L.Dom.Focus.getFocusableDescendant(noChildFixture))
+					expect(D2L.Dom.Focus.getFirstFocusableDescendant(noChildFixture))
 						.to.be.null;
 				});
 
 				it('returns focusable child in shadow-dom', function() {
-					expect(D2L.Dom.Focus.getFocusableDescendant(wcFixture))
+					expect(D2L.Dom.Focus.getFirstFocusableDescendant(wcFixture))
 						.to.equal(wcFixture.getShadow1());
 				});
 
 				it('returns focusable distributed child', function() {
-					expect(D2L.Dom.Focus.getFocusableDescendant(wcFixture.getContent()))
+					expect(D2L.Dom.Focus.getFirstFocusableDescendant(wcFixture.getContent()))
 						.to.equal(wcFixture.querySelector('#light1'));
+				});
+
+			});
+
+			describe('getLastFocusableDescendant', function() {
+
+				it('returns last focusable child', function() {
+					expect(D2L.Dom.Focus.getLastFocusableDescendant(simpleFixture))
+						.to.equal(simpleFixture.querySelector('#light2'));
+				});
+
+				it('returns last focusable descendant', function() {
+					expect(D2L.Dom.Focus.getLastFocusableDescendant(nestedFixture))
+						.to.equal(nestedFixture.querySelector('#light3'));
+				});
+
+				it('returns null if no children', function() {
+					expect(D2L.Dom.Focus.getLastFocusableDescendant(noChildFixture))
+						.to.be.null;
+				});
+
+				it('returns focusable last child in shadow-dom', function() {
+					expect(D2L.Dom.Focus.getLastFocusableDescendant(wcFixture))
+						.to.equal(wcFixture.getShadow2());
+				});
+
+				it('returns focusable last distributed child', function() {
+					expect(D2L.Dom.Focus.getLastFocusableDescendant(wcFixture.getContent()))
+						.to.equal(wcFixture.querySelector('#light2'));
+				});
+
+			});
+
+			describe('getPreviousFocusable', function() {
+
+				it('returns previous focusable sibling', function() {
+					expect(D2L.Dom.Focus.getPreviousFocusable(simpleFixture.querySelector('#light2')))
+						.to.equal(simpleFixture.querySelector('#light1'));
+				});
+
+				it('returns previous focusable parent sibling child', function() {
+					expect(D2L.Dom.Focus.getPreviousFocusable(nestedFixture.querySelector('#light3')))
+						.to.equal(nestedFixture.querySelector('#light2'));
+				});
+
+				it('returns previous focusable shadow parent sibling', function() {
+					expect(D2L.Dom.Focus.getPreviousFocusable(wcFixture.querySelector('#light1')))
+						.to.equal(wcFixture.getShadow1());
+				});
+
+				it('returns previous focusable sibling distributed element', function() {
+					expect(D2L.Dom.Focus.getPreviousFocusable(wcFixture.getShadow2()))
+						.to.equal(wcFixture.querySelector('#light2'));
+				});
+
+				it('returns previous focusable host sibling', function() {
+					expect(D2L.Dom.Focus.getPreviousFocusable(mixedFixture.querySelector('#wc1').getShadow1()))
+						.to.equal(mixedFixture.querySelector('#light1'));
 				});
 
 			});
@@ -153,7 +213,7 @@
 				});
 
 				it('returns focusable shadow parent sibling', function() {
-					expect(D2L.Dom.Focus.getNextFocusable(wcFixture.querySelector('#light1')))
+					expect(D2L.Dom.Focus.getNextFocusable(wcFixture.querySelector('#light2')))
 						.to.equal(wcFixture.getShadow2());
 				});
 

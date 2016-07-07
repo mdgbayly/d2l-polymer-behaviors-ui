@@ -20,7 +20,7 @@
 			textarea: true
 		},
 
-		getFocusableDescendant: function(node, includeHidden) {
+		getFirstFocusableDescendant: function(node, includeHidden) {
 
 			var composedChildren = D2L.Dom.getComposedChildren(node);
 
@@ -30,7 +30,7 @@
 					return composedChildren[i];
 				}
 
-				var focusable = this.getFocusableDescendant(composedChildren[i], includeHidden);
+				var focusable = this.getFirstFocusableDescendant(composedChildren[i], includeHidden);
 				if (focusable) {
 					return focusable;
 				}
@@ -38,6 +38,94 @@
 			}
 
 			return null;
+
+		},
+
+		getLastFocusableDescendant: function(node, includeHidden) {
+
+			var composedChildren = D2L.Dom.getComposedChildren(node);
+
+			for (var i = composedChildren.length - 1; i>=0; i--) {
+
+				var focusable = this.getLastFocusableDescendant(composedChildren[i], includeHidden);
+				if (focusable) {
+					return focusable;
+				}
+
+				if (this.isFocusable(composedChildren[i], includeHidden)) {
+					return composedChildren[i];
+				}
+
+			}
+
+			return null;
+
+		},
+
+		getPreviousFocusable: function(node, includeHidden) {
+
+			if (!node) {
+				return null;
+			}
+
+			if (includeHidden === undefined) {
+				includeHidden = false;
+			}
+
+			var _getPreviousAnscestorSibling = function(node) {
+
+				var parentNode = D2L.Dom.getComposedParent(node);
+				while (parentNode) {
+
+					var previousParentSibling = parentNode.previousElementSibling;
+					if (previousParentSibling) {
+						return previousParentSibling;
+					}
+
+					parentNode = D2L.Dom.getComposedParent(parentNode);
+				}
+
+				return null;
+
+			};
+
+			var _getPreviousFocusable = function(node, ignore, ignoreChildren) {
+
+				if (!ignore && this.isFocusable(node, includeHidden)) {
+					return node;
+				}
+
+				if (!ignoreChildren) {
+					var focusable = this.getLastFocusableDescendant(node, includeHidden);
+					if (focusable) {
+						return focusable;
+					}
+				}
+
+				var previousSibling = node.previousElementSibling;
+				if (previousSibling) {
+					var siblingFocusable = _getPreviousFocusable(previousSibling, false, false);
+					if (siblingFocusable) {
+						return siblingFocusable;
+					}
+
+					return null;
+				}
+
+				var previousAnscestorSibling = _getPreviousAnscestorSibling(node);
+				if (previousAnscestorSibling) {
+					var parentSibingFocusable = _getPreviousFocusable(previousAnscestorSibling, false, false);
+					if (parentSibingFocusable) {
+						return parentSibingFocusable;
+					}
+				}
+
+				return null;
+
+			}.bind(this);
+
+			var focusable = _getPreviousFocusable(node, true, true);
+			return focusable;
 
 		},
 
@@ -74,7 +162,7 @@
 				}
 
 				if (!ignoreChildren) {
-					var focusable = this.getFocusableDescendant(node, includeHidden);
+					var focusable = this.getFirstFocusableDescendant(node, includeHidden);
 					if (focusable) {
 						return focusable;
 					}
@@ -137,11 +225,33 @@
 
 			return _isFocusable;
 
-		},
-
-		getPreviousFocusable: function() {
-
 		}
+
+/*
+
+D2L.LP.Web.UI.Html.Dom.GetPreviousElementSibling = function( elem ) {
+
+	if( elem === undefined || elem === null ) {
+		return null;
+	}
+
+	if( elem.previousElementSibling !== undefined ) {
+		return elem.previousElementSibling;
+	}
+
+	var sibling = elem.previousSibling;
+	while( sibling !== null ) {
+		if( sibling.nodeType == 1 ) {
+			return sibling;
+		}
+		sibling = sibling.previousSibling;
+	}
+
+	return null;
+
+};
+
+*/
 
 	};
 
