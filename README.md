@@ -24,6 +24,16 @@ Include the [webcomponents.js](http://webcomponents.org/polyfills/) "lite" polyf
 
 #### Methods
 
+**D2L.Dom**
+
+```javascript
+// gets the composed children (including shadow children & distributed children)
+D2L.Dom.getComposedChildren(element);
+
+// gets the composed parent (including shadow host & insertion points)
+D2L.Dom.getComposedParent(element);
+```
+
 **D2L.Dom.Focus**
 
 ```javascript
@@ -41,16 +51,6 @@ D2L.Dom.Focus.getPreviousFocusable(element);
 
 // check is focusable (tabindex or white-listed elements)
 D2L.Dom.Focus.isFocusable(element);
-```
-
-**D2L.Dom**
-
-```javascript
-// gets the composed children (including shadow children & distributed children)
-D2L.Dom.getComposedChildren(element);
-
-// gets the composed parent (including shadow host & insertion points)
-D2L.Dom.getComposedParent(element);
 ```
 
 **D2L.Dom.Visibility**
