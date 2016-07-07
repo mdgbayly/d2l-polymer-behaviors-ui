@@ -13,7 +13,7 @@ bower install d2l-polymer-behaviors
 
 ## Usage
 
-Include the [webcomponents.js](http://webcomponents.org/polyfills/) "lite" polyfill (for browsers who don't natively support web components), then import the component or scripts.
+Include the [webcomponents.js](http://webcomponents.org/polyfills/) "lite" polyfill (for browsers who don't natively support web components), then import the component or scripts as needed.
 
 ```html
 <head>
