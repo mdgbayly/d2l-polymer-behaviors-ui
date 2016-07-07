@@ -15,7 +15,7 @@ bower install d2l-polymer-behaviors
 
 Include the [webcomponents.js](http://webcomponents.org/polyfills/) "lite" polyfill (for browsers who don't natively support web components), then import the component or scripts.
 
-```html (example: import focus methods)
+```html
 <head>
 	<script src="https://s.brightspace.com/lib/webcomponentsjs/0.7.21/webcomponents-lite.min.js"></script>
 	<link rel="import" href="../d2l-polymer-behaviors/d2l-dom-focus.html">
