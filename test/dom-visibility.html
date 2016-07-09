@@ -68,18 +68,18 @@
 					visibilityFixture = fixture('visibilityFixture')[1];
 				});
 
-				it('returns true if it and all anscestors are visible', function() {
+				it('returns true if it and all ancestors are visible', function() {
 					expect(Visibility.isVisible(visibilityFixture.querySelector('#default')))
 						.to.be.true;
 				});
 
-				it('returns false if web component anscestor has display:none', function() {
+				it('returns false if web component ancestor has display:none', function() {
 					Polymer.dom(visibilityFixture).setAttribute('hidden', true);
 					expect(Visibility.isVisible(visibilityFixture.querySelector('#default')))
 						.to.be.false;
 				});
 
-				it('returns false if web component shadow anscestor has display:none', function() {
+				it('returns false if web component shadow ancestor has display:none', function() {
 					Polymer.dom(visibilityFixture).setAttribute('hidden-shadow', true);
 					expect(Visibility.isVisible(visibilityFixture.querySelector('#default')))
 						.to.be.false;
