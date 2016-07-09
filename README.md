@@ -27,11 +27,14 @@ Include the [webcomponents.js](http://webcomponents.org/polyfills/) "lite" polyf
 **D2L.Dom**
 
 ```javascript
+// returns null or the closest ancestor that fulfills the specified predicate fxn
+D2L.Dom.findComposedAncestor(node, predicate);
 // gets the composed children (including shadow children & distributed children)
 D2L.Dom.getComposedChildren(element);
-
 // gets the composed parent (including shadow host & insertion points)
-D2L.Dom.getComposedParent(element);
+D2L.Dom.getComposedParent(node);
+// returns true/false whether the specified ancestorNode is an ancestor of node
+D2L.Dom.isComposedAncestor(ancestorNode, node);
 ```
 
 **D2L.Dom.Focus**
