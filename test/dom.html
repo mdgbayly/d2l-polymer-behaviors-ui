@@ -44,16 +44,56 @@
 			</template>
 		</test-fixture>
 
+		<test-fixture id="mixedFixture">
+			<template>
+				<div id="light1">
+					<d2l-dom-test id="wc1">
+						<div id="light2"></div>
+						<div id="light3"></div>
+					</d2l-dom-test>
+				</div>
+			</template>
+		</test-fixture>
+
 		<script>
 
 		describe('d2l-dom', function() {
 
-			var simpleFixture, wcFixture;
+			var simpleFixture, wcFixture, mixedFixture;
 			var shadow = (window.location.search.indexOf('dom=shadow') > -1);
 
 			beforeEach(function() {
 				simpleFixture = fixture('simpleFixture');
 				wcFixture = fixture('wcFixture');
+				mixedFixture = fixture('mixedFixture');
+			});
+
+			describe('findComposedAncestor', function() {
+
+				it('finds ancestor with specified id', function() {
+					var predicate = function(node) { return node.id === 'light1'; };
+					expect(D2L.Dom.findComposedAncestor(simpleFixture.querySelector('#light2'), predicate))
+						.to.equal(simpleFixture);
+				});
+
+				it('does not find ancestor with specified id', function() {
+					var predicate = function(node) { return node.id === 'x'; };
+					expect(D2L.Dom.findComposedAncestor(simpleFixture.querySelector('#light2'), predicate))
+						.to.be.null;
+				});
+
+				it('finds shadow ancestor with specified id for light node', function() {
+					var predicate = function(node) { return node.id === 'container'; };
+					expect(D2L.Dom.findComposedAncestor(wcFixture.querySelector('#light1'), predicate))
+						.to.equal(wcFixture.getContainer());
+				});
+
+				it('finds light ancestor with specified id for shadow node', function() {
+					var predicate = function(node) { return node.id === 'light1'; };
+					expect(D2L.Dom.findComposedAncestor(mixedFixture.querySelector('#wc1').getContainer(), predicate))
+						.to.equal(mixedFixture);
+				});
+
 			});
 
 			describe('getComposedChildren', function() {
@@ -127,6 +167,40 @@
 				it('returns null as parent of document', function() {
 					expect(D2L.Dom.getComposedParent(document))
 						.to.equal(null);
+				});
+
+			});
+
+			describe('isComposedAncestor', function() {
+
+				it('returns true if ancestor', function() {
+					expect(D2L.Dom.isComposedAncestor(simpleFixture, simpleFixture.querySelector('#light2')))
+						.to.be.true;
+				});
+
+				it('returns true if ancestor and node are same', function() {
+					expect(D2L.Dom.isComposedAncestor(simpleFixture, simpleFixture))
+						.to.be.true;
+				});
+
+				it('returns false not ancestor', function() {
+					expect(D2L.Dom.isComposedAncestor(simpleFixture.querySelector('#light2'), simpleFixture))
+						.to.be.false;
+				});
+
+				it('returns true if shadow ancestor of light descendant', function() {
+					expect(D2L.Dom.isComposedAncestor(wcFixture.getContainer(), wcFixture.querySelector('#light2')))
+						.to.be.true;
+				});
+
+				it('returns false if light sibling', function() {
+					expect(D2L.Dom.isComposedAncestor(wcFixture.querySelector('#light3'), wcFixture.querySelector('#light2')))
+						.to.be.false;
+				});
+
+				it('returns true if light ancestor of shadow descendant', function() {
+					expect(D2L.Dom.isComposedAncestor(mixedFixture, mixedFixture.querySelector('#light2')))
+						.to.be.true;
 				});
 
 			});

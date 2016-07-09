@@ -4,6 +4,16 @@
 
 	var Dom = {
 
+		findComposedAncestor: function(node, predicate) {
+			while (node) {
+				if (predicate(node) === true) {
+					return node;
+				}
+				node = this.getComposedParent(node);
+			}
+			return null;
+		},
+
 		getComposedChildren: function(node) {
 
 			if (!node) {
@@ -51,6 +61,12 @@
 
 			return null;
 
+		},
+
+		isComposedAncestor: function(ancestorNode, node) {
+			return this.findComposedAncestor(node, function(node) {
+				return (node === ancestorNode);
+			}) !== null;
 		}
 
 	};

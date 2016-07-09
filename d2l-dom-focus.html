@@ -72,7 +72,7 @@
 				includeHidden = false;
 			}
 
-			var _getPreviousAnscestorSibling = function(node) {
+			var _getPreviousAncestorSibling = function(node) {
 
 				var parentNode = D2L.Dom.getComposedParent(node);
 				while (parentNode) {
@@ -112,9 +112,9 @@
 					return null;
 				}
 
-				var previousAnscestorSibling = _getPreviousAnscestorSibling(node);
-				if (previousAnscestorSibling) {
-					var parentSibingFocusable = _getPreviousFocusable(previousAnscestorSibling, false, false);
+				var previousAncestorSibling = _getPreviousAncestorSibling(node);
+				if (previousAncestorSibling) {
+					var parentSibingFocusable = _getPreviousFocusable(previousAncestorSibling, false, false);
 					if (parentSibingFocusable) {
 						return parentSibingFocusable;
 					}
@@ -139,7 +139,7 @@
 				includeHidden = false;
 			}
 
-			var _getNextAnscestorSibling = function(node) {
+			var _getNextAncestorSibling = function(node) {
 
 				var parentNode = D2L.Dom.getComposedParent(node);
 				while (parentNode) {
@@ -178,7 +178,7 @@
 					return null;
 				}
 
-				var nextParentSibling = _getNextAnscestorSibling(node);
+				var nextParentSibling = _getNextAncestorSibling(node);
 				if (nextParentSibling) {
 					var parentSibingFocusable = _getNextFocusable(nextParentSibling, false, false);
 					if (parentSibingFocusable) {
