@@ -42,16 +42,12 @@ D2L.Dom.isComposedAncestor(ancestorNode, node);
 ```javascript
 // get first focusable child or descendant
 D2L.Dom.Focus.getFirstFocusableDescendant(element);
-
 // get last focusable child or descendant
 D2L.Dom.Focus.getLastFocusableDescendant(element);
-
 // get the next focusable child, sibling, etc.
 D2L.Dom.Focus.getNextFocusable(element);
-
 // get the previous focusable child, sibling, etc.
 D2L.Dom.Focus.getPreviousFocusable(element);
-
 // check is focusable (tabindex or white-listed elements)
 D2L.Dom.Focus.isFocusable(element);
 ```
