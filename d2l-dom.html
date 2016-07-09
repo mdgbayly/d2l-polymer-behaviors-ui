@@ -51,6 +51,16 @@
 
 			return null;
 
+		},
+
+		isComposedAncestor: function(ancestorNode, node) {
+			while (node) {
+				if (node === ancestorNode) {
+					return true;
+				}
+				node = this.getComposedParent(node);
+			}
+			return false;
 		}
 
 	};
