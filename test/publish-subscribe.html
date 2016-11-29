@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>d2l-dom tests</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
+		<link rel="import" href="../d2l-publish-subscribe.html">
+	</head>
+	<body>
+    	<script>
+		describe('d2l-publish-subscribe', function() {
+			var channel = 'test.channel',
+				eventName = 'test-event',
+				messageDetail = 'Test message';
+
+			var subscriptionHandler = function() {
+				return undefined; 
+			}
+
+			beforeEach(function() {
+                window.D2L.PublishSubscribe._channels = {};
+			});
+
+			describe('subscribe', function() {
+
+				it('adds a subscription', function() {
+					D2L.PublishSubscribe.subscribe(channel, subscriptionHandler);
+
+					expect(D2L.PublishSubscribe._channels.hasOwnProperty(channel))
+                        .to.be.true;
+				});
+
+			});
+
+            describe('unsubscribe', function() {
+
+				it('removes a subscription', function() {
+                    
+					D2L.PublishSubscribe.subscribe(channel, subscriptionHandler);
+
+					expect(D2L.PublishSubscribe._channels.hasOwnProperty(channel))
+                        .to.be.true;
+					
+					D2L.PublishSubscribe.unsubscribe(channel, subscriptionHandler);
+
+					expect(D2L.PublishSubscribe._channels.hasOwnProperty(channel))
+                        .to.be.false;
+				});
+
+			});
+
+            describe('publish', function() {
+
+				before(function() {
+					this.clock = sinon.useFakeTimers();
+				});
+
+				after(function() {
+					this.clock.restore();
+				});
+
+				it('publishes a message', function() {
+
+					var subscriptionHandlerSpy = sinon.spy();
+
+					D2L.PublishSubscribe.subscribe(channel, subscriptionHandlerSpy);
+					D2L.PublishSubscribe.publish(channel, null, eventName, messageDetail);					
+	
+					this.clock.tick(10);
+
+					expect(subscriptionHandlerSpy.calledOnce);
+				
+				});
+
+			});
+
+		});
+
+		</script>
+	</body>
+</html>

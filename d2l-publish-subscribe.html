@@ -1,0 +1,60 @@
+<script>
+(function() {
+	'use strict';
+
+	var PublishSubscribe = {
+
+		subscribe: function(channel, subscriber) {
+
+			if (!D2L.PublishSubscribe._channels[channel]) {
+				D2L.PublishSubscribe._channels[channel] = [];
+			}
+
+			D2L.PublishSubscribe._channels[channel].push(subscriber);
+		},
+
+		unsubscribe: function(channel, subscriber) {
+			if (!D2L.PublishSubscribe._channels[channel]) {
+				return;
+			}
+
+			if (D2L.PublishSubscribe._channels.hasOwnProperty(channel)) {
+				var subscriberIndex = D2L.PublishSubscribe._channels[channel].indexOf(subscriber);
+
+				if (subscriberIndex > -1) {
+					D2L.PublishSubscribe._channels[channel].splice(subscriberIndex, 1);
+
+					if (D2L.PublishSubscribe._channels[channel].length === 0) {
+						delete D2L.PublishSubscribe._channels[channel];
+					}
+				}
+			}
+		},
+
+		publish: function(channel, sender, eventName, detail) {
+
+			if (D2L.PublishSubscribe._channels[channel]) {
+
+				D2L.PublishSubscribe._channels[channel].forEach(function(subscriber) {
+					if (typeof subscriber === 'function') {
+						setTimeout(function() {
+							subscriber({
+								sender: sender,
+								eventName: eventName,
+								detail: detail
+							});
+						}, 0);
+					}
+				});
+			}
+		},
+
+		_channels: {}
+
+	};
+
+	window.D2L = window.D2L || {};
+	window.D2L.PublishSubscribe =  window.D2L.PublishSubscribe || PublishSubscribe;
+
+})();
+</script>
