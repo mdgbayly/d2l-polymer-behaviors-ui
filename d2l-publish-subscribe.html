@@ -14,6 +14,7 @@
 		},
 
 		unsubscribe: function(channel, subscriber) {
+
 			if (!D2L.PublishSubscribe._channels[channel]) {
 				return;
 			}
@@ -31,18 +32,14 @@
 			}
 		},
 
-		publish: function(channel, sender, eventName, detail) {
+		publish: function(channel, message) {
 
 			if (D2L.PublishSubscribe._channels[channel]) {
 
 				D2L.PublishSubscribe._channels[channel].forEach(function(subscriber) {
 					if (typeof subscriber === 'function') {
 						setTimeout(function() {
-							subscriber({
-								sender: sender,
-								eventName: eventName,
-								detail: detail
-							});
+							subscriber(message);
 						}, 0);
 					}
 				});
