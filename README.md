@@ -89,6 +89,9 @@ D2L.PublishSubscribe.unsubscribe('my.channel.hierarchy', onMessageCallback);
 // publish a message to a channel (where message is of any type)
 D2L.PublishSubscribe.publish('my.channel.hierarchy', message);
 
+// clear all subscriptions from a channel
+D2L.PublishSubscribe.clearSubscriptions('my.channel.hierarchy');
+
 ```
 
 ### Usage in Production
