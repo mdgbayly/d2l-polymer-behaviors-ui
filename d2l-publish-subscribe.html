@@ -13,6 +13,7 @@
 			if (this._channels[channel].indexOf(subscriber) === -1) {
 				this._channels[channel].push(subscriber);
 			}
+
 		},
 
 		unsubscribe: function(channel, subscriber) {
@@ -21,35 +22,38 @@
 				return;
 			}
 
-			if (this._channels.hasOwnProperty(channel)) {
-				var subscriberIndex = this._channels[channel].indexOf(subscriber);
+			var subscriberIndex = this._channels[channel].indexOf(subscriber);
 
-				if (subscriberIndex > -1) {
-					this._channels[channel].splice(subscriberIndex, 1);
+			if (subscriberIndex > -1) {
+				this._channels[channel].splice(subscriberIndex, 1);
 
-					if (this._channels[channel].length === 0) {
-						delete this._channels[channel];
-					}
+				if (this._channels[channel].length === 0) {
+					delete this._channels[channel];
 				}
 			}
+
 		},
 
 		publish: function(channel, message) {
 
-			if (this._channels[channel]) {
-
-				this._channels[channel].forEach(function(subscriber) {
-					if (typeof subscriber === 'function') {
-						setTimeout(function() {
-							subscriber(message);
-						}, 0);
-					}
-				});
+			if (!this._channels[channel]) {
+				return;
 			}
+
+			this._channels[channel].forEach(function(subscriber) {
+				if (typeof subscriber === 'function') {
+					setTimeout(function() {
+						subscriber(message);
+					}, 0);
+				}
+			});
+
 		},
 
 		clearSubscriptions: function(channel) {
+
 			delete this._channels[channel];
+
 		},
 
 		_channels: {}
