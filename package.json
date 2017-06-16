@@ -3,11 +3,11 @@
   "private": true,
   "description": "Shared Polymer behaviors for use in web components",
   "scripts": {
-    "postinstall": "bower install",
+    "postinstall": "polymer install --variants",
     "test": "npm run test:lint:js && npm run test:lint:wc",
     "test:lint:js": "eslint *.html",
-    "test:lint:wc": "polylint --input *.html",
-    "test:unit:local": "wct --skip-plugin sauce"
+    "test:lint:wc": "polymer lint --input *.html",
+    "test:unit:local": "polymer test --skip-plugin sauce"
   },
   "repository": {
     "type": "git",
@@ -16,11 +16,9 @@
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "devDependencies": {
-    "bower": "^1.7.7",
-    "eslint": "^2.10.2",
-    "eslint-config-brightspace": "^0.2.1",
-    "eslint-plugin-html": "^1.4.0",
-    "polylint": "^2.10.0",
-    "web-component-tester": "^4.2.2"
+    "eslint": "^4.0.0",
+    "eslint-config-brightspace": "^0.2.4",
+    "eslint-plugin-html": "^3.0.0",
+    "polymer-cli": "^1.2.0"
   }
 }

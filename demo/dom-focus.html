@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title>D2L DOM Focus</title>
-	<script src="https://s.brightspace.com/lib/webcomponentsjs/0.7.21/webcomponents.min.js"></script>
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 	<script>
 		var shadow = (window.location.search.indexOf('dom=shadow') > -1);
 		if (shadow) {
@@ -28,7 +28,7 @@
 				<div>
 					<a id="shadow1" href="javascript:void(0);" tabindex="0">Shadow 1</a>
 				</div>
-				<content></content>
+				<slot></slot>
 				<div>
 					<a id="shadow2" href="javascript:void(0);" tabindex="0">Shadow 2</a>
 				</div>

@@ -27,6 +27,8 @@
 
 			if (node.tagName === 'CONTENT') {
 				nodes = node.getDistributedNodes();
+			} else if (node.tagName === 'SLOT') {
+				nodes = node.assignedNodes({flatten: true});
 			} else {
 				if (node.shadowRoot) {
 					node = node.shadowRoot;
@@ -51,6 +53,10 @@
 				if (insertionPoints && insertionPoints.length > 0) {
 					return insertionPoints[0];
 				}
+			}
+
+			if (node.assignedSlot) {
+				return node.assignedSlot;
 			}
 
 			if (node.parentNode) {
