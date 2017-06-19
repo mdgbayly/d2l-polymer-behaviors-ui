@@ -14,7 +14,7 @@
 		<dom-module id="d2l-dom-test">
 			<template>
 				<div id="container">
-					<content></content>
+					<slot></slot>
 				</div>
 			</template>
 			<script>
@@ -60,7 +60,7 @@
 		describe('d2l-dom', function() {
 
 			var simpleFixture, wcFixture, mixedFixture;
-			var shadow = (window.location.search.indexOf('dom=shadow') > -1);
+			var shadow = Polymer.Settings.dom === 'shadow' || Polymer.Settings.useShadow;
 
 			beforeEach(function() {
 				simpleFixture = fixture('simpleFixture');
@@ -122,7 +122,7 @@
 					var container = wcFixture.getContainer();
 					var children = D2L.Dom.getComposedChildren(container);
 					if (shadow) {
-						expect(children[0].tagName).to.equal('CONTENT');
+						expect(children[0].tagName).to.be.oneOf(['SLOT', 'CONTENT']);
 						children = D2L.Dom.getComposedChildren(children[0]);
 					}
 					expect(children.length).to.equal(2);
