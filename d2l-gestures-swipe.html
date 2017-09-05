@@ -22,6 +22,12 @@
 				tracking = null;
 				node.removeEventListener('touchend', handleTouchEnd);
 				node.removeEventListener('touchermove', handleTouchMove);
+				node.removeEventListener('touchcancel', handleTouchCancel);
+			};
+
+			var handleTouchCancel = function(e) {
+				reset();
+				return;
 			};
 
 			var handleTouchEnd = function(e) {
@@ -77,6 +83,7 @@
 
 			node.addEventListener('touchend', handleTouchEnd);
 			node.addEventListener('touchmove', handleTouchMove);
+			node.addEventListener('touchcancel', handleTouchCancel);
 
 		},
 
