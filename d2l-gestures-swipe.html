@@ -5,6 +5,7 @@
 	var Swipe = {
 
 		_maxTime: 2000,
+		_minDistance: 30,
 
 		_handleTouchStart: function(e) {
 
@@ -56,13 +57,22 @@
 					theta = ((2 * Math.PI) - theta) * 57.3;
 				}
 
+				var hasVerticalDistance = (Math.abs(distanceY) >= window.D2L.Gestures.Swipe._minDistance);
+				var hasHorizontalDistance = (Math.abs(distanceX) >= window.D2L.Gestures.Swipe._minDistance);
+
 				node.dispatchEvent(new CustomEvent('d2l-swipe', {
 					detail: {
 						distance: {
 							x: distanceX,
 							y: distanceY
 						},
-						direction: theta,
+						direction: {
+							angle: theta,
+							isUp: (hasVerticalDistance && (theta > 295 || theta < 65)),
+							isDown: (hasVerticalDistance && (theta > 115 && theta < 245)),
+							isLeft: (hasHorizontalDistance && (theta > 205 && theta < 335)),
+							isRight: (hasHorizontalDistance && (theta > 25 && theta < 155))
+						},
 						duration: elapsedTime
 					}
 				}));
