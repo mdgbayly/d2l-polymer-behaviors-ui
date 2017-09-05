@@ -6,7 +6,7 @@
 
 		_maxTime: 2000,
 
-		_handleTouchStart: function (e) {
+		_handleTouchStart: function(e) {
 
 			var node = this;
 
@@ -18,19 +18,19 @@
 				}
 			};
 
-			var reset = function () {
+			var reset = function() {
 				tracking = null;
 				node.removeEventListener('touchend', handleTouchEnd);
 				node.removeEventListener('touchermove', handleTouchMove);
 				node.removeEventListener('touchcancel', handleTouchCancel);
 			};
 
-			var handleTouchCancel = function(e) {
+			var handleTouchCancel = function() {
 				reset();
 				return;
 			};
 
-			var handleTouchEnd = function(e) {
+			var handleTouchEnd = function() {
 
 				if (!tracking || !tracking.end) {
 					return;
@@ -70,7 +70,7 @@
 				reset();
 			};
 
-			var handleTouchMove = function (e) {
+			var handleTouchMove = function(e) {
 				if (!tracking) {
 					return;
 				}
@@ -87,11 +87,11 @@
 
 		},
 
-		register: function (node) {
+		register: function(node) {
 			node.addEventListener('touchstart', this._handleTouchStart);
 		},
 
-		unregister: function (node) {
+		unregister: function(node) {
 			node.removeEventListener('touchstart', this._handleTouchStart);
 		}
 
