@@ -70,6 +70,25 @@ D2L.Dom.Focus.isFocusable(element);
 D2L.Dom.Visibility.isVisible(element);
 ```
 
+**D2L.Gestures.Swipe**
+
+```javascript
+// sets up event listeners for swipe gesture
+D2L.Gestures.Swipe.register(element);
+
+// listen for custom swipe event
+element.addEventListener('d2l-swipe', function (e) {
+	console.log(
+		e.detail.distance,  // .x/.y
+		e.detail.direction, // deg
+		e.detail.duration   // ms
+	);
+}.bind(this));
+
+// unregister event listeners for swipe gesture
+D2L.Gestures.Swipe.unregister(element);
+```
+
 **D2L.Id**
 
 ```javascript
