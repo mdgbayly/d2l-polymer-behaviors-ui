@@ -60,6 +60,24 @@
 				var hasVerticalDistance = (Math.abs(distanceY) >= window.D2L.Gestures.Swipe._minDistance);
 				var hasHorizontalDistance = (Math.abs(distanceX) >= window.D2L.Gestures.Swipe._minDistance);
 
+				var horizontal = 'none';
+				if (Math.abs(distanceX) >= window.D2L.Gestures.Swipe._minDistance) {
+					if (theta > 205 && theta < 335) {
+						horizontal = 'left';
+					} else if (theta > 25 && theta < 155) {
+						horizontal = 'right';
+					}
+				}
+
+				var vertical = 'none';
+				if (Math.abs(distanceY) >= window.D2L.Gestures.Swipe._minDistance) {
+					if (theta > 295 || theta < 65) {
+						vertical = 'up';
+					} else if (theta > 115 && theta < 245) {
+						vertical = 'down';
+					}
+				}
+
 				node.dispatchEvent(new CustomEvent('d2l-swipe', {
 					detail: {
 						distance: {
@@ -68,10 +86,8 @@
 						},
 						direction: {
 							angle: theta,
-							isUp: (hasVerticalDistance && (theta > 295 || theta < 65)),
-							isDown: (hasVerticalDistance && (theta > 115 && theta < 245)),
-							isLeft: (hasHorizontalDistance && (theta > 205 && theta < 335)),
-							isRight: (hasHorizontalDistance && (theta > 25 && theta < 155))
+							horizontal: horizontal,
+							vertical: vertical
 						},
 						duration: elapsedTime
 					}

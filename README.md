@@ -79,9 +79,11 @@ D2L.Gestures.Swipe.register(element);
 // listen for custom swipe event
 element.addEventListener('d2l-swipe', function (e) {
 	console.log(
-		e.detail.distance,  // .x/.y
-		e.detail.direction, // deg
-		e.detail.duration   // ms
+		e.detail.distance,             // .x/.y
+		e.detail.direction.angle,      // deg
+		e.detail.direction.horizontal, // left/right
+		e.detail.direction.vertical,   // up/down
+		e.detail.duration              // ms
 	);
 }.bind(this));
 
