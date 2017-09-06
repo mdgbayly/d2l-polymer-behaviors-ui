@@ -57,9 +57,6 @@
 					theta = ((2 * Math.PI) - theta) * 57.3;
 				}
 
-				var hasVerticalDistance = (Math.abs(distanceY) >= window.D2L.Gestures.Swipe._minDistance);
-				var hasHorizontalDistance = (Math.abs(distanceX) >= window.D2L.Gestures.Swipe._minDistance);
-
 				var horizontal = 'none';
 				if (Math.abs(distanceX) >= window.D2L.Gestures.Swipe._minDistance) {
 					if (theta > 205 && theta < 335) {
