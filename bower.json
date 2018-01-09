@@ -10,7 +10,7 @@
     "package.json"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#1.9 - 2.0"
+    "polymer": "Polymer/polymer#1.9 - 2"
   },
   "devDependencies": {
     "iron-test-helpers": "PolymerElements/iron-test-helpers#1 - 2",
