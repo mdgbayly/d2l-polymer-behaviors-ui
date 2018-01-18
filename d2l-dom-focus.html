@@ -22,7 +22,7 @@
 
 		getComposedActiveElement: function() {
 			var node = document.activeElement;
-			while(node.shadowRoot) {
+			while (node.shadowRoot) {
 				if (node.shadowRoot.activeElement) {
 					node = node.shadowRoot.activeElement;
 				} else {
