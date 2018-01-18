@@ -20,6 +20,18 @@
 			textarea: true
 		},
 
+		getComposedActiveElement: function() {
+			var node = document.activeElement;
+			while (node.shadowRoot) {
+				if (node.shadowRoot.activeElement) {
+					node = node.shadowRoot.activeElement;
+				} else {
+					break;
+				}
+			}
+			return node;
+		},
+
 		getFirstFocusableDescendant: function(node, includeHidden) {
 
 			var composedChildren = D2L.Dom.getComposedChildren(node);
