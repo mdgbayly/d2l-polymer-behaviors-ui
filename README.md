@@ -43,6 +43,9 @@ D2L.Dom.isComposedAncestor(ancestorNode, node);
 **D2L.Dom.Focus**
 
 ```javascript
+// get the composed active element (i.e. the actual element that has focus)
+D2L.Dom.Focus.getComposedActiveElement();
+
 // get first focusable child or descendant
 D2L.Dom.Focus.getFirstFocusableDescendant(element);
 

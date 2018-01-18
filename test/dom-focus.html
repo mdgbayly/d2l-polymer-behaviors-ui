@@ -110,6 +110,24 @@
 				mixedFixture = fixture('mixedFixture');
 			});
 
+			describe('getComposedActiveElement', function() {
+
+				it('returns composed light-dom element', function() {
+					var expected = wcFixture.querySelector('#light1');
+					expected.focus();
+					expect(D2L.Dom.Focus.getComposedActiveElement())
+						.to.equal(expected);
+				});
+
+				it('returns composed shadow-dom element', function() {
+					var expected = wcFixture.getShadow1();
+					expected.focus();
+					expect(D2L.Dom.Focus.getComposedActiveElement())
+						.to.equal(expected);
+				});
+
+			});
+
 			describe('getFirstFocusableDescendant', function() {
 
 				it('returns focusable child', function() {
