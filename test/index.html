@@ -8,15 +8,20 @@
 	</head>
 	<body>
 		<script>
-		WCT.loadSuites([
-			'dom.html?wc-shadydom',
-			'dom.html?dom=shadow',
-			'dom-visibility.html?wc-shadydom',
-			'dom-visibility.html?dom-shadow',
-			'dom-focus.html?wc-shadydom',
-			'dom-focus.html?dom=shadow',
+		var testVariants = [], tests = [
+			'dom.html',
+			'dom-visibility.html',
+			'dom-focus.html',
+			'focusable-behavior.html',
 			'id.html'
-		]);
+		];
+
+		for (var i = 0; i < tests.length; i++) {
+			testVariants.push(tests[i] + '?wc-shadydom=true');
+			testVariants.push(tests[i] + '?dom=shadow');
+		}
+
+		WCT.loadSuites(testVariants);
 		</script>
 	</body>
 </html>

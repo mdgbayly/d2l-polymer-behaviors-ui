@@ -1,20 +1,11 @@
 <html>
 <head>
 	<title>D2L DOM Focus</title>
-	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-	<script>
-		var shadow = (window.location.search.indexOf('dom=shadow') > -1);
-		if (shadow) {
-			window.Polymer = window.Polymer || {};
-			window.Polymer.dom = 'shadow';
-		}
-	</script>
-	<link rel="stylesheet" href="demo-styles.css">
-	<link rel="import" href="../../polymer/polymer.html">
-	<link rel="import" href="../d2l-dom-focus.html">
-	<link rel="import" href="dom-focus-demo.html">
-	<style>
-	</style>
+	<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="stylesheet" href="../demo-styles.css">
+	<link rel="import" href="../../../polymer/polymer.html">
+	<link rel="import" href="../../d2l-dom-focus.html">
+	<link rel="import" href="d2l-dom-focus-component.html">
 </head>
 <body unresolved>
 
@@ -52,9 +43,9 @@
 	<div id="fixture" style="width: 60%;">
 
 		<a id="light1" href="http://www.nasa.gov/topics/technology/index.html">Technology Drives Exploration (L1)</a>
-		<d2l-dom-focus-demo id="wc1">
+		<d2l-dom-focus-component id="wc1">
 			<a id="light2" href="http://www.nasa.gov/topics/solarsystem/index.html">Solar System and Beyond (L2)</a>
-		</d2l-dom-focus-demo>
+		</d2l-dom-focus-component>
 		<a id="light3" href="http://www.nasa.gov/topics/journeytomars/index.html">Journey to Mars (L3)</a>
 
 	</div>

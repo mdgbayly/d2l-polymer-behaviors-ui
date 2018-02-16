@@ -121,7 +121,7 @@
 				it('returns distributed child elements for insertion point', function() {
 					var container = wcFixture.getContainer();
 					var children = D2L.Dom.getComposedChildren(container);
-					if (shadow) {
+					if (shadow || Polymer.Element) {
 						expect(children[0].tagName).to.be.oneOf(['SLOT', 'CONTENT']);
 						children = D2L.Dom.getComposedChildren(children[0]);
 					}
@@ -140,7 +140,7 @@
 				});
 
 				it('returns insertion point as parent of distributed node', function() {
-					if (shadow) {
+					if (shadow || Polymer.Element) {
 						expect(D2L.Dom.getComposedParent(wcFixture.querySelector('#light1')))
 							.to.equal(Polymer.dom(wcFixture.querySelector('#light1')).getDestinationInsertionPoints()[0]);
 					} else {
@@ -150,7 +150,7 @@
 				});
 
 				it('returns host as parent of shadow-root', function() {
-					if (shadow) {
+					if (shadow || Polymer.Element) {
 						expect(D2L.Dom.getComposedParent(wcFixture.root))
 							.to.equal(wcFixture);
 					} else {
