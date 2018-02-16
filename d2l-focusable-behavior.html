@@ -10,6 +10,8 @@
 		 * Applies focus to descendent with `d2l-focusable` class.
 		 */
 		focus: function() {
+			// Note: focus event will not be triggered with using Polymer 1 + shady.  If necessary,
+			// we can raise a custom event. For now, keeping this bare-bones.
 			var elem = Polymer.dom(this.root).querySelector('.d2l-focusable');
 			if (!elem) return;
 			elem.focus();
