@@ -14,7 +14,7 @@
     "wct.conf.json"
   ],
   "dependencies": {
-    "polymer": "1.9 - 2"
+    "polymer": "1 - 2"
   },
   "devDependencies": {
     "iron-test-helpers": "^2.0.0",
